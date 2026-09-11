@@ -43,6 +43,7 @@
 |---|---|---|
 | Camera→Pose→Route→HostController→ESP32 | 완료·실차 검증 | 단일 AUTO_HOST 차량의 후면주차 |
 | Parking setup/recovery/replanning | 완료·실차 검증 | bounded 시도, 불가능하면 zero/WAIT/FAULT |
+| `host_control` 정밀 접근/후진/최종정렬 recovery | 구현 완료·단위/시뮬레이션 테스트 검증 | approach/final-pose guard, phase별 throttle floor·arrival radius, 제한된 phase에서만 후진 허용 (실차 계측 로그는 아직 없음) |
 | TCP/NDJSON session recovery | 완료·HIL 검증 | zero latch, RESET/SET_MODE, stale ACK 차단 |
 | Route preflight safety | 완료·자동 회귀 | unsafe route는 load 전에 reject |
 | Dashboard REST/WebSocket adapter | 구현 완료 | Redis는 배포 시 선택, 제어 안전 경로와 분리 |

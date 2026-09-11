@@ -1292,3 +1292,14 @@ host.manual_producer = ManualControlProducer(manual_cfg)
 ### 추가 네트워크 확인
 
 Windows 모바일 핫스팟이 꺼져 있으면 ESP32가 SSID 재접속을 반복한다. 실제 TCP 문제를 보기 전에 hotspot ON과 ESP32 IPv4 획득 여부를 먼저 확인한다.
+
+### `controller/config.py`의 `FirmwareConstants`와 firmware PWM 불일치
+
+`FirmwareConstants`(host, `controller/config.py`)의 PWM 값은 firmware
+`app_config.example.h`의 값을 그대로 옮겨 적은 것이라 자동으로 동기화되지
+않는다. `host_control` 정밀 접근/후진/최종정렬 recovery를 별도 브랜치에서
+통합하면서 이 값이 과거 calibration(12/22/32/40/38/50)으로 남아 있었던 적이
+있다 — firmware(`actuator.c`/`app_config.example.h`)는 이후 calibration으로
+갱신됐지만 host 쪽 상수는 그대로였다. git이 두 파일을 서로 다른 대상으로 보기
+때문에 merge 충돌로 드러나지 않는다. firmware의 PWM 상수를 바꾼 뒤에는
+`FirmwareConstants`도 반드시 같이 확인한다.

@@ -72,6 +72,15 @@ Backend source of truth: [`release/hanium-2026-final @ 15043f3`](https://github.
 
 ## 부분 완료
 
+### host_control 정밀 접근/후진/최종정렬 recovery
+
+- `APPROACH/ALIGN/ENTRY/FINAL/PARKING/RECOVERY` phase 전용 도착 반경·throttle floor/상한 분리(`controller/config.py`)
+- 제한된 phase에서만 허용되는 후진(`reverse_allowed_phases`)
+- `approach_guard`/`final_pose_guard` 기반 접근·최종정렬 실패 감지와 mission recovery 전환
+- recovery 경로 소진 시 원래 목표 복귀 또는 latched failure 확정
+- `host_control/tests/`, `controller/tests/`의 단위·시뮬레이션 테스트로 검증(147 tests)
+- 실차 계측 로그는 아직 없다. `docs/development_log.md`/`docs/test_log_summary.md`의 실차 run 목록은 이 기능 추가 이전 기록이다.
+
 ### PPO
 
 - MaskablePPO 환경, 학습/평가와 deterministic inference 경로는 구현됐다.

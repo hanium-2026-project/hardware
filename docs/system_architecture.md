@@ -40,6 +40,15 @@
 
 이 저장소의 `integrated/host`는 과거 통합 스냅샷이다. 최종 production Backend 판단에는 별도 Backend 저장소의 [`release/hanium-2026-final`](https://github.com/hanium-2026-project/backend/tree/release/hanium-2026-final) branch, commit `15043f3`을 사용한다.
 
+## host_control 정밀 접근/후진/최종정렬 recovery
+
+`host_control/`은 일반 `CRUISE` 제어와 별도로 `APPROACH/ALIGN/ENTRY/FINAL/PARKING/RECOVERY` phase에서만 적용되는 정밀 제어 경로를 가진다.
+
+- `strict_arrival_phases`/`precision_drive_phases`(`controller/config.py`)로 phase별 도착 판정 반경과 throttle 상/하한을 CRUISE와 분리한다. `parking_min_move_throttle`/`reverse_min_move_throttle`은 일반 CRUISE의 `min_move_throttle`보다 낮은 floor로, 저속 정밀 이동과 후진을 가능하게 한다.
+- 후진은 `reverse_allowed_phases`로 제한된 phase(RECOVERY/PARKING/ALIGN/ENTRY/FINAL)에서만 허용되고, 일반 AUTO 주행에는 열리지 않는다.
+- `host_control/approach_guard.py`, `host_control/final_pose_guard.py`가 접근 실패·최종정렬 실패를 감지해 mission recovery로 넘긴다. `host_control/mission.py`는 recovery 경로 소진 시 원래 목표로 복귀하거나 latched failure로 확정한다.
+- 현재 검증 범위는 `integrated/host/host_control/tests/`, `integrated/host/controller/tests/`의 단위·시뮬레이션 테스트이며, 실차 계측 로그는 아직 없다.
+
 ## Perception과 binding
 
 1. YOLO가 `rc_car`와 `FRONT_CUSHION`을 검출한다.
