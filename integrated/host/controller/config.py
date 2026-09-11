@@ -38,13 +38,13 @@ class FirmwareConstants:
     servo_right_weak_deg: float = 106.0
     servo_right_strong_deg: float = 126.0
 
-    # --- 모터 PWM duty (latest real-car calibration) ---
-    pwm_forward_min: int = 12
-    pwm_forward_default: int = 22
-    pwm_turn_min: int = 32
-    pwm_turn_default: int = 40
-    pwm_strong_turn_min: int = 38
-    pwm_strong_turn_default: int = 50
+    # --- 모터 PWM duty (main CAR01 direct-control transport contract 기준 calibration) ---
+    pwm_forward_min: int = 16
+    pwm_forward_default: int = 25
+    pwm_turn_min: int = 34
+    pwm_turn_default: int = 43
+    pwm_strong_turn_min: int = 40
+    pwm_strong_turn_default: int = 54
     motor_pwm_max_duty: int = 255
     motor_deadband_throttle: float = 0.02
 
