@@ -1,3 +1,19 @@
+# 🚗 Hanium 2026 — AI Smart Parking System
+
+CCTV 기반 차량 인식과 강화학습 기반 주차 공간 배정, RC Car 자동주차 제어를 통합한 AI 스마트 주차 시스템입니다. 차량 인식부터 주차 공간 배정, 경로/제어, 실제 RC Car 주차까지 연결되는 End-to-End 시스템을 세 저장소로 나누어 구현했습니다.
+
+## 📦 Repositories
+
+| Repository | Role |
+|---|---|
+| [Frontend](https://github.com/hanium-2026-project/frontend) | 실시간 주차 현황 및 시스템 상태를 제공하는 웹 대시보드 |
+| [Backend](https://github.com/hanium-2026-project/backend) | 차량 인식, 주차 상태 관리, RL 기반 주차 공간 배정 및 시스템 orchestration |
+| **Hardware (현재 저장소)** | Host 기반 차량 제어, ESP32 firmware 및 RC Car 자동주차 |
+
+이 저장소는 전체 시스템에서 **Backend가 계산한 waypoint를 받아 실제 RC카를 움직이는 제어 계층**을 담당합니다 — 고정 카메라 인식과 RL 기반 슬롯 배정은 [Backend 저장소](https://github.com/hanium-2026-project/backend)에서 이루어집니다.
+
+---
+
 # 2026 한이음 자율주행 기반 지능형 주차 운영 시스템
 
 > 고정 카메라 전역 인식과 노트북 기반 폐루프 제어로 RC카를 주차시키는 축소형 스마트 주차 테스트베드
@@ -104,7 +120,7 @@ python manage.py run_pipeline `
   --show
 ```
 
-가중치, calibration, 영상과 run 산출물은 로컬 증빙이며 Git에 포함하지 않는다. 실제 production Backend source of truth는 [`release/hanium-2026-final`](https://github.com/hanium-2026-project/backend/tree/release/hanium-2026-final) branch의 [`15043f3`](https://github.com/hanium-2026-project/backend/commit/15043f3ec583cdab5f9519cdc3ad2e103dcf8d49)이다. generic Backend URL의 default `main`과 이 저장소의 `integrated/host`는 최종 Backend source of truth가 아니다.
+가중치, calibration, 영상과 run 산출물은 로컬 증빙이며 Git에 포함하지 않는다. **실제 production Backend source of truth는 [`hanium-2026-project/backend`](https://github.com/hanium-2026-project/backend)의 `main` 브랜치다** — 이 문서를 처음 작성할 때는 해당 내용이 `release/hanium-2026-final` 브랜치에만 있었으나, 이후 그 브랜치가 `main`으로 fast-forward 병합되어 현재는 `main`이 곧 source of truth다. 이 저장소의 `integrated/host`는 과거 통합 스냅샷이며 최종 Backend source of truth가 아니다.
 
 ## 저장소 구조
 
@@ -129,7 +145,7 @@ CAR_02의 encoder-disabled firmware는 별도 로컬 workspace로 분리돼 있�
 - [안전 및 fail-safe](docs/safety_and_failsafe.md)
 - [테스트 로그 요약](docs/test_log_summary.md)
 - [개발 로그](docs/development_log.md)
-- [트러블슈팅](docs/troubleshooting.md)
+- **[트러블슈팅](docs/troubleshooting.md)** — 모터드라이버/퓨즈 소손, host/firmware 설정 drift, production E2E 통합에서 발견된 8종 이상의 실패 모드 등 실제 문제 해결 근거가 담긴 문서. Backend 저장소의 [`docs/engineering-challenges.md`](https://github.com/hanium-2026-project/backend/blob/main/docs/engineering-challenges.md)가 이 기록 중 시스템 레벨 사례를 포트폴리오 관점으로 요약·인용한다.
 
 ## 저장소 보안/용량 원칙
 
